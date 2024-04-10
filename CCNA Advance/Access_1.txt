@@ -1,0 +1,34 @@
+enable
+config t
+!
+hostname ACCESS_1
+!
+vtp password cisco
+vtp domain cisco.com
+vtp mode client
+!
+interface range e0/0-1
+switch trunk encap dot1q
+switch mode trunk
+switch trunk native vlan 999
+!
+interface range e0/2-3
+switch mode access
+switch access vlan 10
+!
+spanning-tree mode rapid-pvst
+!
+interface vlan 999
+no shutdown
+ip add 192.168.99.3 255.255.255.0
+!
+int vlan 1
+shutdown
+!
+no ip routing
+!
+ip default-gateway 192.168.99.254
+!
+end
+wr
+!

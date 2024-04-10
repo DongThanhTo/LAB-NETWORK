@@ -1,0 +1,27 @@
+enable
+config t
+!
+hostname Router_1
+!
+int e0/0
+no shutdown
+ip add 1.2.0.1 255.255.255.248
+exit
+int e0/1
+no shutdown
+ip add 1.1.0.1 255.255.255.248
+exit
+!
+router ospf 1
+network 0.0.0.0 0.0.0.0 area 0
+exit
+!
+ip dhcp pool vlan10
+network 192.168.10.0 255.255.255.0
+default-router 192.168.10.254
+dns 8.8.8.8 8.8.4.4
+exit
+ip dhcp excluded 192.168.10.1 192.168.10.10
+!
+end
+wr
