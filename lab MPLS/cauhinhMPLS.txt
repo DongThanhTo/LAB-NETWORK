@@ -1,0 +1,59 @@
+Tiếp theo ta cấu hình MPLS Trên các router R1 R2 R3 R4 R5 R6
+R1
+ena
+conf t
+mpls ldp router-id lo0 force
+int e1/0
+mpls ip
+exit
+int e1/1
+mpls ip
+end
+wr
+------------------------------
+R2
+ena
+conf t
+mpls ldp router-id lo0 force
+int range e1/0-2
+mpls ip
+end
+wr
+-------------------------------
+R3
+ena
+conf t
+mpls ldp router-id lo0 force
+int range e1/0-3
+mpls ip 
+end
+wr
+-------------------------------
+R4
+ena
+conf t
+mpls ldp router-id lo0 force
+int range e1/0-1
+mpls ip 
+end
+wr
+---------------------------
+R5
+ena
+conf t
+mpls ldp router-id lo0 force
+int range e1/0-3
+mpls ip 
+end
+wr
+-----------------------------
+R6
+ena
+conf t
+mpls ldp router-id lo0 force
+int range e1/0-2
+mpls ip
+end
+wr
+------------------------
+show mpls ldp neighbor

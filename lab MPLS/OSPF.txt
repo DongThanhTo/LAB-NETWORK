@@ -1,0 +1,51 @@
+ cấu hình OSPF để R1 + R2 + R3 + R4 + R5 + R6 có thể thấy nhau.
+ R1
+ ena
+ conf t
+ router ospf 1
+ network 0.0.0.0 255.255.255.255 area 0
+ end
+ wr
+ ---------------------------
+ R2
+ ena
+ conf t
+ router ospf 1
+ network 0.0.0.0 255.255.255.255 area 0
+ end
+ wr
+ ---------------------------
+ R3
+ ena
+ conf t
+ router ospf 1
+ network 0.0.0.0 255.255.255.255 area 0
+ end
+ wr
+ ---------------------------
+ R4
+ ena
+ conf t
+ router ospf 1
+ network 0.0.0.0 255.255.255.255 area 0
+ end
+ wr
+ ---------------------------
+ R5
+ ena
+ conf t
+ router ospf 1
+ network 0.0.0.0 255.255.255.255 area 0
+ end
+ wr
+ ---------------------------
+ R6
+ ena
+ conf t
+ router ospf 1
+ network 0.0.0.0 255.255.255.255 area 0
+ end
+ wr
+ ---------------------------
+ 
+ 

@@ -1,0 +1,45 @@
+Cấu hình BGP trên R1 và R4
+R1
+ena
+conf t
+router bgp 100
+neighbor 4.4.4.4 remote-as 100
+neighbor 4.4.4.4 update-source lo0
+exit
+router bgp 100
+address-family vpnv4
+neighbor 4.4.4.4 activate
+neighbor 4.4.4.4 send-community both
+exit
+router bgp 100
+address-family vpnv4 vrf A
+redistribute static
+redistribute connected
+end
+wr
+-------------------------------
+
+R4
+ena
+conf t
+router bgp 100
+neighbor 1.1.1.1 remote-as 100
+neighbor 1.1.1.1 update-source lo0
+exit
+router bgp 10
+address-family vpnv4
+neighbor 1.1.1.1 activate
+neighbor 1.1.1.1 send-community both
+exit
+router bgp 100
+address-family vpnv4 vrf A
+redistribute static
+redistribute connected
+end
+wr
+
+-------------------------
+Cấu hình static route trên R7 và R8 để Customer A có thể thấy Customer B
+
+R7(config)#ip route 0.0.0.0 0.0.0.0 172.16.100.1
+R8(config)#ip route 0.0.0.0 0.0.0.0 172.16.200.1

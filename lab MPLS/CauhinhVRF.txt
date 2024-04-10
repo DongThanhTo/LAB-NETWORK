@@ -1,0 +1,66 @@
+Cấu hình ip VRF trên R1 và R4
+Bước 1 : cấu hình vrf trên R1:
+ena
+conf trên
+ip vrf A
+rd 15:1
+route-target export 100:200
+route-target import 300:400
+exit
+int e1/2
+no sh 
+ip add 172.16.100.1 255.255.255.0
+exit
+ip route vrf A 192.168.3.0 255.255.255.0 172.16.100.2
+end
+wr
+--------------------------------------
+show ip vrf interface 
+-------------------------------------
+Bước 2: cấu hình vrf trên R4:
+ena
+conf t
+ip vrf A
+rd 15:3
+route-target import 100:200
+route-target export 300:400
+exit
+int e1/2
+no sh 
+ip add 172.16.200.1 255.255.255.0
+exit
+ip route vrf A 192.168.3.0 255.255.255.0 172.16.100.2
+end
+wr
+--------------------------------------
+show ip vrf interface
+-------------------------------------
+Bước 3: Tiến hành đặt ip cho 2 PC
+VPC1
+PC1> ip 192.168.3.2 255.255.255.0 192.168.3.1
+VPC2
+PC2> ip 192.168.4.2 255.255.255.0 192.168.4.1
+
+R7:
+ena
+conf t
+int f2/0 (e2/0)
+no sh 
+ip add 192.168.3.1 255.255.255.0
+end
+wr
+
+R8
+ena
+conf target
+int f2/0 (e2/0)
+no sh 
+ip add 192.168.4.1 255.255.255.0
+end
+wr
+------------------------
+ping vrf A 192.168.3.1
+ping vrf A 192.168.3.2
+ping vrf A 192.168.4.1
+ping vrf A 192.168.4.2
+
